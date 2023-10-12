@@ -1,0 +1,58 @@
+[project]
+name = "python-utility"
+version = "0.1.0"
+description = "Add your description here"
+authors = [{ name = "yss", email = "waku.pdxppxzy@gmail.com" }]
+dependencies = []
+readme = "README.md"
+requires-python = ">= 3.11"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "black>=23.9.1",
+    "ruff>=0.0.292",
+    "pytest>=7.4.2",
+    "pytest-mock>=3.11.1",
+    "pytest-cov>=4.1.0",
+]
+
+[tool.black]
+line-length = 150
+
+[tool.ruff]
+select = ["ALL"]
+ignore = [
+  "ANN101", # missing-type-function-argument
+  "D100",   # missing docstring in public module
+  "D102",   # missing docstring in public method
+  "D104",   # missing docstring in public package
+  "D105",   # missing docstring in magic method
+  "D106",   # missing docstring in public nested class
+  "D107",   # missing docstring in __init__
+  "D203",   # 1 blank line required before class docstring
+  "D205",   # 1 blank line required between summary line and description
+  "D212",   # Multi-line docstring summary should start at the first line
+  "D400",   # First line should end with a period
+  "D415",   # First line should end with a period, question mark, or exclamation point
+  "BLE",    # flake8-blind-except
+  "FA",     # flake8-future-annotation
+  "TRY",    # tryceratops
+  "TD",     # flake8-todo
+  "FIX",    # flake8-fixme
+]
+line-length = 150
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.rye.scripts]
+lint = { chain = ["lint:black", "lint:ruff"] }
+"lint:black" = "black ./src/python_utility/"
+"lint:ruff" = "ruff ./src/python_utility/"
+
+test = { cmd = "pytest -v -s --cov" }
